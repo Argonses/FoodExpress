@@ -1,4 +1,5 @@
 using FoodExpress.Client;
+using FoodExpress.Client.Services.FoodService;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -12,6 +13,7 @@ builder.Services.AddHttpClient("FoodExpress.ServerAPI", client => client.BaseAdd
 
 // Supply HttpClient instances that include access tokens when making requests to the server project
 builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("FoodExpress.ServerAPI"));
+builder.Services.AddScoped<IFoodService, FoodService>();
 
 builder.Services.AddApiAuthorization();
 
