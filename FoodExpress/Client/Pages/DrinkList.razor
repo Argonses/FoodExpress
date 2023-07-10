@@ -1,5 +1,5 @@
 ﻿@page "/drinkList"
-@inject HttpClient http
+@inject IDrinkService DrinkService
 
 <h3>DrinkList</h3>
 
@@ -14,7 +14,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var drink in Drinks)
+        @foreach (var drink in DrinkService.Drinks)
         {
             <tr>
                 <td>@drink.Id</td>
@@ -35,14 +35,8 @@
 </style>
 
 @code {
-    List<Drink> Drinks = new List<Drink>();
-
     protected override async Task OnInitializedAsync()
     {
-        var result = await http.GetFromJsonAsync<List<Drink>>("api/Drink");
-        if (result != null)
-        {
-            Drinks = result;
-        }
+        await DrinkService.GetDrinks();
     }
 }
