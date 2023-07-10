@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodExpress.Server", "FoodExpress\Server\FoodExpress.Server.csproj", "{E8F84C62-11CD-4F96-9C8D-46991F043052}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoodExpress.Server", "FoodExpress\Server\FoodExpress.Server.csproj", "{E8F84C62-11CD-4F96-9C8D-46991F043052}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodExpress.Client", "FoodExpress\Client\FoodExpress.Client.csproj", "{7882A065-5CC3-43A9-B8C7-AE50BBF92FBB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoodExpress.Client", "FoodExpress\Client\FoodExpress.Client.csproj", "{7882A065-5CC3-43A9-B8C7-AE50BBF92FBB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FoodExpress.Shared", "FoodExpress\Shared\FoodExpress.Shared.csproj", "{594C05EB-4AA9-4AE3-ADFE-2715BAA42167}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoodExpress.Shared", "FoodExpress\Shared\FoodExpress.Shared.csproj", "{594C05EB-4AA9-4AE3-ADFE-2715BAA42167}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
