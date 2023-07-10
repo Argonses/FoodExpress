@@ -1,0 +1,48 @@
+﻿@page "/drinkList"
+@inject HttpClient http
+
+<h3>DrinkList</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price ($)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var drink in Drinks)
+        {
+            <tr>
+                <td>@drink.Id</td>
+                <td><img src="@drink.ImageUrl" alt="Drink Image" class="drink-image" /></td>
+                <td>@drink.Name</td>
+                <td>@drink.Description</td>
+                <td>@drink.Price</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<style>
+    .drink-image {
+        width: 100px;
+        height: auto;
+    }
+</style>
+
+@code {
+    List<Drink> Drinks = new List<Drink>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var result = await http.GetFromJsonAsync<List<Drink>>("api/Drink");
+        if (result != null)
+        {
+            Drinks = result;
+        }
+    }
+}

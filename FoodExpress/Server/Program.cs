@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using FoodExpress.Server.Services.FoodService;
+using FoodExpress.Server.Services.DrinkService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +29,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IFoodService, FoodService>();
+builder.Services.AddScoped<IDrinkService, DrinkService>();
 
 var app = builder.Build();
 

@@ -5,5 +5,6 @@ namespace FoodExpress.Server.Services.FoodService
     public interface IFoodService
     {
         Task<List<Food>> GetFoods();
+        Task<Food> GetFoodById(int id);
     }
 }
