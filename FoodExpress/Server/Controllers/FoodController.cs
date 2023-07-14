@@ -29,5 +29,11 @@ namespace FoodExpress.Server.Controllers
         {
             return await _service.GetFoodById(id);
         }
+
+        [HttpPost]
+        public async Task<Food> AddFood(Food food)
+        {
+            return await _service.AddFood(food);
+        }
     }
 }

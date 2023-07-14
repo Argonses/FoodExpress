@@ -15,6 +15,18 @@ namespace FoodExpress.Server.Services.FoodService
             _context = context;
         }
 
+        public async Task<Food> AddFood(Food food)
+        {
+            if (food == null)
+            {
+                return null;
+            }
+
+            await _context.Foods.AddAsync(food);
+            await _context.SaveChangesAsync();
+            return food;
+        }
+
         public async Task<Food> GetFoodById(int id)
         {
             var result = await _context.Foods.FindAsync(id);

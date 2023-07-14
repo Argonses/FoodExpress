@@ -1,38 +1,27 @@
 ﻿@page "/drinkList"
 @inject IDrinkService DrinkService
 
+<link href="/css/DrinkMenu.css" rel="stylesheet" />
+
 <h3>DrinkList</h3>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Image</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Price ($)</th>
-        </tr>
-    </thead>
-    <tbody>
+<div class="menu-container">
+    <div class="menu-list">
         @foreach (var drink in DrinkService.Drinks)
         {
-            <tr>
-                <td>@drink.Id</td>
-                <td><img src="@drink.ImageUrl" alt="Drink Image" class="drink-image" /></td>
-                <td>@drink.Name</td>
-                <td>@drink.Description</td>
-                <td>@drink.Price</td>
-            </tr>
+            <div class="menu-item">
+                <div class="menu-image">
+                    <img src="@drink.ImageUrl" alt="Drink Image" class="drink-image" />
+                </div>
+                <div class="menu-details">
+                    <h5 class="menu-name">@drink.Name</h5>
+                    <p class="menu-description">@drink.Description</p>
+                    <p class="menu-price">$@drink.Price</p>
+                </div>
+            </div>
         }
-    </tbody>
-</table>
-
-<style>
-    .drink-image {
-        width: 100px;
-        height: auto;
-    }
-</style>
+    </div>
+</div>
 
 @code {
     protected override async Task OnInitializedAsync()
