@@ -1,0 +1,40 @@
+﻿@page "/food/{id:int}"
+@inject IFoodService FoodService
+@inject HttpClient HttpClient
+
+<link href="/css/FoodMenu.css" rel="stylesheet" />
+
+<div class="details-container">
+    <div class="details-list">
+        @if (food != null)
+        {
+            <div class="details-item">
+                <div class="details-image">
+                    <img src="@food.ImageUrl" alt="Food Image" class="food-image" />
+                </div>
+                <div class="details-content">
+                    <h5 class="details-name">@food.Name</h5>
+                    <p class="details-description">@food.Description</p>
+                    <p class="details-price">$@food.Price</p>
+                    <button class="btn btn-primary">Order</button>
+                </div>
+            </div>
+        }
+        else
+        {
+            <p>No food found.</p>
+        }
+    </div>
+</div>
+
+@code {
+    private Food? food = null;
+
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        food = await FoodService.GetFoodById(Id);
+    }
+}

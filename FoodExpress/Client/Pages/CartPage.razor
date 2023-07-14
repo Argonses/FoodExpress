@@ -1,0 +1,46 @@
+﻿@page "/cartPage"
+@inject HttpClient http
+
+<h3>CartPage</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price ($)</th>
+            <th>Added On</th>
+            <th>Updated On</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Orders)
+        {
+            <tr>
+                <td>@order.Id</td>
+                <td><img src="@order.ImageUrl" alt="Order Image" class="order-image" /></td>
+                <td>@order.Name</td>
+                <td>@order.Description</td>
+                <td>@order.Price</td>
+                <td>@order.AddedOn.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                <td>@order.UpdatedOn.ToString("yyyy-MM-dd HH:mm:ss")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    List<Order> Orders = new List<Order>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var result = await http.GetFromJsonAsync<List<Order>>("api/Cart");
+        if (result != null)
+        {
+            Orders = result;
+        }
+    }
+}
+

@@ -15,6 +15,18 @@ namespace FoodExpress.Client.Services.DrinkService
 
         public List<Drink> Drinks { get; set; } = new List<Drink>();
 
+        public async Task<Drink> AddDrink(Drink drink)
+        {
+            var result = await _http.PostAsJsonAsync<Drink>("api/Drink", drink);
+            return drink;
+        }
+
+        public async Task<Drink> GetDrinkById(int id)
+        {
+            var result = await _http.GetFromJsonAsync<Drink>($"api/Drink/{id}");
+            return result;
+        }
+
         public async Task GetDrinks()
         {
             var result = await _http.GetFromJsonAsync<List<Drink>>("api/Drink");

@@ -42,5 +42,6 @@ namespace FoodExpress.Server.Data
 
         public DbSet<Food> Foods { get; set; }
         public DbSet<Drink> Drinks { get; set; }
+        public DbSet<Order> Orders { get; set; }
     }
 }
