@@ -35,5 +35,11 @@ namespace FoodExpress.Server.Controllers
         {
             return await _service.AddFood(food);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<Food> DeleteFood(int id)
+        {
+            return await _service.DeleteFood(id);
+        }
     }
 }

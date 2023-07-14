@@ -27,6 +27,19 @@ namespace FoodExpress.Server.Services.FoodService
             return food;
         }
 
+        public async Task<Food> DeleteFood(int id)
+        {
+            var result = await _context.Foods.FindAsync(id);
+            if (result == null)
+            {
+                return null;
+            }
+
+            _context.Foods.Remove(result);
+            _context.SaveChanges();
+            return result;
+        }
+
         public async Task<Food> GetFoodById(int id)
         {
             var result = await _context.Foods.FindAsync(id);

@@ -25,6 +25,19 @@ namespace FoodExpress.Server.Services.DrinkService
             return drink;
         }
 
+        public async Task<Drink> DeleteDrink(int id)
+        {
+            var result = await _context.Drinks.FindAsync(id);
+            if (result == null)
+            {
+                return null;
+            }
+
+            _context.Drinks.Remove(result);
+            _context.SaveChanges();
+            return result;
+        }
+
         public async Task<Drink> GetDrinkById(int id)
         {
             var result = await _context.Drinks.FindAsync(id);

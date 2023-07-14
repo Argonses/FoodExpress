@@ -7,5 +7,6 @@ namespace FoodExpress.Server.Services.FoodService
         Task<List<Food>> GetFoods();
         Task<Food> GetFoodById(int id);
         Task<Food> AddFood(Food food);
+        Task<Food> DeleteFood(int id);
     }
 }
