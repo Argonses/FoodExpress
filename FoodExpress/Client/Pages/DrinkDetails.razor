@@ -1,5 +1,126 @@
-﻿<h3>DrinkDetails</h3>
+﻿@page "/drink/{id:int}"
+@inject IDrinkService DrinkService
+@inject HttpClient HttpClient
+
+<style>
+    .details-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .details-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+        max-width: 800px;
+    }
+
+    .details-item {
+        display: flex;
+        flex-direction: column;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .details-image {
+        width: 100%;
+        padding-bottom: 75%;
+        position: relative;
+    }
+
+    .drink-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+        .drink-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+        }
+
+    .details-content {
+        padding: 16px;
+    }
+
+    .details-name {
+        font-size: 20px;
+        font-weight: bold;
+        margin: 0;
+    }
+
+    .details-description {
+        margin: 8px 0;
+    }
+
+    .details-price {
+        margin: 0;
+        font-weight: bold;
+    }
+</style>
+
+<h3>DrinkDetails</h3>
+
+<div class="details-container">
+    <div class="details-list">
+        @if (drink != null)
+        {
+            <div class="details-item">
+                <div class="details-image">
+                    <img src="@drink.ImageUrl" alt="Drink Image" class="drink-image" />
+                </div>
+                <div class="details-content">
+                    <h5 class="details-name">@drink.Name</h5>
+                    <p class="details-description">@drink.Description</p>
+                    <p class="details-price">$@drink.Price</p>
+                    <button class="btn btn-primary" @onclick="AddToCart">Order</button>
+                    @if (isItemAddedToCart)
+                    {
+                        <div class="alert alert-success success-message">
+                            <strong>Success!</strong> Item added to cart!
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+        else
+        {
+            <p>No drink found.</p>
+        }
+    </div>
+</div>
 
 @code {
+    private Drink? drink = null;
+    private Order order = new Order();
+    private bool isItemAddedToCart = false;
 
+    [Parameter]
+    public int Id { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        drink = await DrinkService.GetDrinkById(Id);
+    }
+
+    private async Task AddToCart()
+    {
+        order.Name = drink.Name;
+        order.ImageUrl = drink.ImageUrl;
+        order.Description = drink.Description;
+        order.Price = drink.Price;
+        order.AddedOn = DateTime.Now;
+        order.UpdatedOn = DateTime.Now;
+
+        await HttpClient.PostAsJsonAsync("api/Cart", order);
+
+        isItemAddedToCart = true;
+    }
 }
