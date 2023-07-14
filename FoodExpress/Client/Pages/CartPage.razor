@@ -1,12 +1,13 @@
 ﻿@page "/cartPage"
 @inject HttpClient http
 
+<link href="/css/CartStyles.css" rel="stylesheet" />
+
 <h3>CartPage</h3>
 
 <table class="table">
     <thead>
         <tr>
-            <th>ID</th>
             <th>Image</th>
             <th>Name</th>
             <th>Description</th>
@@ -19,11 +20,14 @@
         @foreach (var order in Orders)
         {
             <tr>
-                <td>@order.Id</td>
-                <td><img src="@order.ImageUrl" alt="Order Image" class="order-image" /></td>
+                <td>
+                    <div class="order-image-container">
+                        <img src="@order.ImageUrl" alt="Order Image" class="order-image" />
+                    </div>
+                </td>
                 <td>@order.Name</td>
                 <td>@order.Description</td>
-                <td>@order.Price</td>
+                <td>$@order.Price</td>
                 <td>@order.AddedOn.ToString("yyyy-MM-dd HH:mm:ss")</td>
                 <td>@order.UpdatedOn.ToString("yyyy-MM-dd HH:mm:ss")</td>
             </tr>

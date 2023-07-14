@@ -16,7 +16,13 @@
                     <h5 class="details-name">@food.Name</h5>
                     <p class="details-description">@food.Description</p>
                     <p class="details-price">$@food.Price</p>
-                    <button class="btn btn-primary">Order</button>
+                    <button class="btn btn-primary" @onclick="AddToCart">Order</button>
+                    @if (isItemAddedToCart)
+                    {
+                        <div class="alert alert-success success-message">
+                            <strong>Success!</strong> Item added to cart!
+                        </div>
+                    }
                 </div>
             </div>
         }
@@ -29,6 +35,8 @@
 
 @code {
     private Food? food = null;
+    private Order order = new Order();
+    private bool isItemAddedToCart = false;
 
     [Parameter]
     public int Id { get; set; }
@@ -36,5 +44,19 @@
     protected override async Task OnParametersSetAsync()
     {
         food = await FoodService.GetFoodById(Id);
+    }
+
+    private async Task AddToCart()
+    {
+        order.Name = food.Name;
+        order.ImageUrl = food.ImageUrl;
+        order.Description = food.Description;
+        order.Price = food.Price;
+        order.AddedOn = DateTime.Now;
+        order.UpdatedOn = DateTime.Now;
+
+        await HttpClient.PostAsJsonAsync("api/Cart", order);
+
+        isItemAddedToCart = true;
     }
 }

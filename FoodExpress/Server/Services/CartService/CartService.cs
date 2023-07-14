@@ -13,6 +13,13 @@ namespace FoodExpress.Server.Services.CartService
             _context = context;
         }
 
+        public async Task<Order> AddOrder(Order order)
+        {
+            await _context.Orders.AddAsync(order);
+            await _context.SaveChangesAsync();
+            return order;
+        }
+
         public async Task<List<Order>> GetOrders()
         {
             return await _context.Orders.ToListAsync();

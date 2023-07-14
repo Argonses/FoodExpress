@@ -21,5 +21,11 @@ namespace FoodExpress.Server.Controllers
         {
             return await _service.GetOrders();
         }
+
+        [HttpPost]
+        public async Task<Order> AddOrder(Order order)
+        {
+            return await _service.AddOrder(order);
+        }
     }
 }
