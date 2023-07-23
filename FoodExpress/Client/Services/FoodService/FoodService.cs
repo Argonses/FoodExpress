@@ -21,6 +21,14 @@ namespace FoodExpress.Client.Services.FoodService
             return food;
         }
 
+        public async Task<Food> DeleteFood(int id)
+        {
+            var response = await _http.DeleteAsync($"api/Food/{id}");
+            var deletedFood = await response.Content.ReadFromJsonAsync<Food>();
+            return deletedFood;
+        }
+
+
         public async Task<Food> GetFoodById(int id)
         {
             var result = await _http.GetFromJsonAsync<Food>($"api/Food/{id}");

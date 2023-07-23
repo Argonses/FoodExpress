@@ -1,5 +1,7 @@
 ﻿@page "/cartPage"
 @inject HttpClient http
+@inject IDrinkService drinkService
+@inject IFoodService foodService
 
 <link href="/css/CartStyles.css" rel="stylesheet" />
 
@@ -14,6 +16,7 @@
             <th>Price ($)</th>
             <th>Added On</th>
             <th>Updated On</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -31,7 +34,7 @@
                 <td>@order.AddedOn.ToString("yyyy-MM-dd HH:mm:ss")</td>
                 <td>@order.UpdatedOn.ToString("yyyy-MM-dd HH:mm:ss")</td>
                 <td>
-                    <button class="btn btn-danger">Delete</button>
+                    <button class="btn btn-danger" @onclick="() => DeleteOrder(order)">Delete</button>
                 </td>
             </tr>
         }
@@ -43,11 +46,16 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var result = await http.GetFromJsonAsync<List<Order>>("api/Cart");
-        if (result != null)
-        {
-            Orders = result;
-        }
+        await LoadOrders();
+    }
+
+    private async Task LoadOrders()
+    {
+        Orders = await http.GetFromJsonAsync<List<Order>>("api/Cart");
+    }
+
+    private async Task DeleteOrder(Order order)
+    {
+        await http.DeleteAsync($"api/Cart/{order.Id}");        
     }
 }
-

@@ -21,6 +21,13 @@ namespace FoodExpress.Client.Services.DrinkService
             return drink;
         }
 
+        public async Task<Drink> DeleteDrink(int id)
+        {
+            var response = await _http.DeleteAsync($"api/Drink/{id}");
+            var deletedDrink = await response.Content.ReadFromJsonAsync<Drink>();
+            return deletedDrink;
+        }
+
         public async Task<Drink> GetDrinkById(int id)
         {
             var result = await _http.GetFromJsonAsync<Drink>($"api/Drink/{id}");

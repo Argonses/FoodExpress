@@ -8,5 +8,6 @@ namespace FoodExpress.Client.Services.DrinkService
         Task GetDrinks();
         Task<Drink> GetDrinkById(int id);
         Task<Drink> AddDrink(Drink drink);
+        Task<Drink> DeleteDrink(int id);
     }
 }

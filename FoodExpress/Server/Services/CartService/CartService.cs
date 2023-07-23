@@ -1,6 +1,8 @@
 ﻿using FoodExpress.Server.Data;
 using FoodExpress.Shared;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using static NuGet.Packaging.PackagingConstants;
 
 namespace FoodExpress.Server.Services.CartService
 {
@@ -18,6 +20,37 @@ namespace FoodExpress.Server.Services.CartService
             await _context.Orders.AddAsync(order);
             await _context.SaveChangesAsync();
             return order;
+        }
+
+        public async Task<IActionResult> DeleteCartItem(int id)
+        {
+            if (!_context.Orders.Any())
+            {
+                return null;
+            }
+
+            var cartGame = await _context.Orders.FindAsync(id);
+            if (cartGame == null)
+            {
+                return null;
+            }
+
+            _context.Orders.Remove(cartGame);
+            await _context.SaveChangesAsync();
+            throw new Exception();
+        }
+
+        public async Task<bool> DeleteOrder(int orderId)
+        {
+            var order = _context.Orders.FirstOrDefault(o => o.Id == orderId);
+            if (order != null)
+            {
+                _context.Orders.Remove(order);
+                await _context.SaveChangesAsync();
+                return await Task.FromResult(true);
+            }
+
+            return await Task.FromResult(false);
         }
 
         public async Task<List<Order>> GetOrders()

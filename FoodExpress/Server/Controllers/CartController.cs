@@ -2,6 +2,7 @@
 using FoodExpress.Shared;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FoodExpress.Server.Controllers
 {
@@ -26,6 +27,12 @@ namespace FoodExpress.Server.Controllers
         public async Task<Order> AddOrder(Order order)
         {
             return await _service.AddOrder(order);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCartItem(int id)
+        {
+            return await _service.DeleteCartItem(id);
         }
     }
 }
