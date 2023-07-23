@@ -1,11 +1,20 @@
 ﻿@page "/cartPage"
-@inject HttpClient http
+@inject ICartService cartService
 @inject IDrinkService drinkService
 @inject IFoodService foodService
 
 <link href="/css/CartStyles.css" rel="stylesheet" />
 
 <h3>CartPage</h3>
+
+<div class="alert-container">
+    @if (showAlert)
+    {
+        <div class="alert alert-success">
+            Task is in process and will done! You can close this page!
+        </div>
+    }
+</div>
 
 <table class="table">
     <thead>
@@ -20,7 +29,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var order in Orders)
+        @foreach (var order in cartService.Orders)
         {
             <tr>
                 <td>
@@ -34,7 +43,7 @@
                 <td>@order.AddedOn.ToString("yyyy-MM-dd HH:mm:ss")</td>
                 <td>@order.UpdatedOn.ToString("yyyy-MM-dd HH:mm:ss")</td>
                 <td>
-                    <button class="btn btn-danger" @onclick="() => DeleteOrder(order)">Delete</button>
+                    <button class="btn btn-danger" @onclick="() => DeleteOrder(order.Id)">Delete</button>
                 </td>
             </tr>
         }
@@ -42,7 +51,7 @@
 </table>
 
 @code {
-    List<Order> Orders = new List<Order>();
+    bool showAlert = false;
 
     protected override async Task OnInitializedAsync()
     {
@@ -51,11 +60,17 @@
 
     private async Task LoadOrders()
     {
-        Orders = await http.GetFromJsonAsync<List<Order>>("api/Cart");
+        await cartService.LoadOrders();
     }
 
-    private async Task DeleteOrder(Order order)
+    private async Task DeleteOrder(int orderId)
     {
-        await http.DeleteAsync($"api/Cart/{order.Id}");        
+        await cartService.DeleteOrder(orderId);
+        showAlert = true;
+        StateHasChanged();
+
+        await Task.Delay(2000);
+        showAlert = false;
+        StateHasChanged();
     }
 }

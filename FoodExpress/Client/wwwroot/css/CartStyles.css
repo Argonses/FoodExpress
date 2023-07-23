@@ -1,4 +1,30 @@
-﻿.order-image-container {
+﻿.alert-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+.alert {
+    padding: 10px;
+    background-color: #28a745;
+    color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.alert-success {
+    background-color: #28a745;
+}
+
+.alert.hidden {
+    opacity: 0;
+}
+
+
+.order-image-container {
     width: 60px;
     height: 60px;
     overflow: hidden;

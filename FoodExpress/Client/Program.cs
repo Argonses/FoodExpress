@@ -1,4 +1,5 @@
 using FoodExpress.Client;
+using FoodExpress.Client.Services.CartService;
 using FoodExpress.Client.Services.DrinkService;
 using FoodExpress.Client.Services.FoodService;
 using Microsoft.AspNetCore.Components.Web;
@@ -16,6 +17,7 @@ builder.Services.AddHttpClient("FoodExpress.ServerAPI", client => client.BaseAdd
 builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("FoodExpress.ServerAPI"));
 builder.Services.AddScoped<IFoodService, FoodService>();
 builder.Services.AddScoped<IDrinkService, DrinkService>();
+builder.Services.AddScoped<ICartService, CartService>();
 
 builder.Services.AddApiAuthorization();
 
