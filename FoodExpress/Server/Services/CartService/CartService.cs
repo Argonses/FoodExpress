@@ -22,24 +22,6 @@ namespace FoodExpress.Server.Services.CartService
             return order;
         }
 
-        public async Task<IActionResult> DeleteCartItem(int id)
-        {
-            if (!_context.Orders.Any())
-            {
-                return null;
-            }
-
-            var cartGame = await _context.Orders.FindAsync(id);
-            if (cartGame == null)
-            {
-                return null;
-            }
-
-            _context.Orders.Remove(cartGame);
-            await _context.SaveChangesAsync();
-            throw new Exception();
-        }
-
         public async Task<bool> DeleteOrder(int orderId)
         {
             var order = _context.Orders.FirstOrDefault(o => o.Id == orderId);

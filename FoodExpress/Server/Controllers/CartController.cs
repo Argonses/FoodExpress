@@ -30,9 +30,9 @@ namespace FoodExpress.Server.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCartItem(int id)
+        public async Task<bool> DeleteOrder(int id)
         {
-            return await _service.DeleteCartItem(id);
+            return await _service.DeleteOrder(id);
         }
     }
 }
