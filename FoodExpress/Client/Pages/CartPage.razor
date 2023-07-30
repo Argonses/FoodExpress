@@ -5,7 +5,7 @@
 
 <link href="/css/CartStyles.css" rel="stylesheet" />
 
-<h3>CartPage</h3>
+<h3 style="text-align:center">CartPage</h3>
 
 <div class="alert-container">
     @if (showAlert)
@@ -50,8 +50,47 @@
     </tbody>
 </table>
 
+<div class="container mt-4">
+    <h4>Checkout</h4>
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" class="form-control" id="firstName" @bind="firstName" required />
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" class="form-control" id="lastName" @bind="lastName" required />
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" @bind="email" required />
+            </div>
+            <div class="form-group">
+                <label for="address">Address</label>
+                <input type="text" class="form-control" id="address" @bind="address" required />
+            </div>
+        </div>
+    </div>
+    <button @onclick="() => CleanCart()" class="btn btn-primary">Order</button>
+</div>
+
+@if (showAlert)
+{
+    <div class="alert alert-success mt-4" role="alert">
+        Your order has been sended!
+    </div>
+}
+
+
 @code {
     bool showAlert = false;
+    private string firstName = string.Empty;
+    private string lastName = string.Empty;
+    private string email = string.Empty;
+    private string address = string.Empty;
 
     protected override async Task OnInitializedAsync()
     {
@@ -74,5 +113,25 @@
         StateHasChanged();
 
         await LoadOrders();
+    }
+
+    private async Task CleanCart()
+    {
+        try
+        {
+            if (string.IsNullOrEmpty(firstName) || string.IsNullOrEmpty(lastName) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(address))
+            {
+                showAlert = false;
+                return;
+            }
+
+            await cartService.CleanCart();
+            await cartService.LoadOrders();
+            showAlert = true;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error deleting game: {ex.Message}");
+        }
     }
 }

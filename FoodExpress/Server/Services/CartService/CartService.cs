@@ -22,6 +22,14 @@ namespace FoodExpress.Server.Services.CartService
             return order;
         }
 
+        public async Task<IActionResult> CleanCart()
+        {
+            var games = await _context.Orders.ToListAsync();
+            _context.Orders.RemoveRange(games);
+            await _context.SaveChangesAsync();
+            throw new Exception();
+        }
+
         public async Task<bool> DeleteOrder(int orderId)
         {
             var order = _context.Orders.FirstOrDefault(o => o.Id == orderId);

@@ -8,5 +8,6 @@ namespace FoodExpress.Server.Services.CartService
         Task<List<Order>> GetOrders();
         Task<Order> AddOrder(Order order);
         Task<bool> DeleteOrder(int orderId);
+        Task<IActionResult> CleanCart();
     }
 }

@@ -15,6 +15,11 @@ namespace FoodExpress.Client.Services.CartService
 
         public List<Order> Orders { get; set ; } = new List<Order>();
 
+        public async Task CleanCart()
+        {
+            await _http.DeleteAsync($"api/Cart");
+        }
+
         public async Task DeleteOrder(int orderId)
         {
             await _http.DeleteAsync($"api/Cart/{orderId}");

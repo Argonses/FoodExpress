@@ -7,5 +7,6 @@ namespace FoodExpress.Client.Services.CartService
         List<Order> Orders { get; set; }
         Task LoadOrders();
         Task DeleteOrder(int orderId);
+        Task CleanCart();
     }
 }

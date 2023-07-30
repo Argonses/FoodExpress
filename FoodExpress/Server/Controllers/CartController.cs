@@ -34,5 +34,11 @@ namespace FoodExpress.Server.Controllers
         {
             return await _service.DeleteOrder(id);
         }
+
+        [HttpDelete]
+        public async Task<IActionResult> CleanCart()
+        {
+            return await _service.CleanCart();
+        }
     }
 }
