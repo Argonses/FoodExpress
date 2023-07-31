@@ -17,35 +17,64 @@ namespace FoodExpress.Server.Services.CartService
 
         public async Task<Order> AddOrder(Order order)
         {
-            await _context.Orders.AddAsync(order);
-            await _context.SaveChangesAsync();
-            return order;
+            try
+            {
+                await _context.Orders.AddAsync(order);
+                await _context.SaveChangesAsync();
+                return order;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Something went wrong while adding the order.", ex);
+            }
         }
 
         public async Task<IActionResult> CleanCart()
         {
-            var games = await _context.Orders.ToListAsync();
-            _context.Orders.RemoveRange(games);
-            await _context.SaveChangesAsync();
-            throw new Exception();
+            try
+            {
+                var orders = await _context.Orders.ToListAsync();
+                _context.Orders.RemoveRange(orders);
+                await _context.SaveChangesAsync();
+                return new OkResult();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Something went wrong while cleaning the cart.", ex);
+            }
         }
 
         public async Task<bool> DeleteOrder(int orderId)
         {
-            var order = _context.Orders.FirstOrDefault(o => o.Id == orderId);
-            if (order != null)
+            try
             {
-                _context.Orders.Remove(order);
-                await _context.SaveChangesAsync();
-                return await Task.FromResult(true);
-            }
+                var order = await _context.Orders.FindAsync(orderId);
+                if (order != null)
+                {
+                    _context.Orders.Remove(order);
+                    await _context.SaveChangesAsync();
+                    return true;
+                }
 
-            return await Task.FromResult(false);
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Something went wrong while deleting the order.", ex);
+            }
         }
 
         public async Task<List<Order>> GetOrders()
         {
-            return await _context.Orders.ToListAsync();
+            try
+            {
+                return await _context.Orders.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Something went wrong while retrieving the orders.", ex);
+            }
         }
     }
+
 }

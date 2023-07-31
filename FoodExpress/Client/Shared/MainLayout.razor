@@ -8,7 +8,13 @@
     <main>
         <div class="top-row px-4 auth">
             <LoginDisplay />
-            <a href="/cartPage" class="btn btn-primary oi oi-cart">Cart</a>
+            <AuthorizeView>
+                <Authorized>
+                    <a href="/cartPage" class="btn btn-primary oi oi-cart">Cart</a>
+                </Authorized>
+                <NotAuthorized>
+                </NotAuthorized>
+            </AuthorizeView>
         </div>
 
         <article class="content px-4">

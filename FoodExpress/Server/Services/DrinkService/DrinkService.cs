@@ -15,43 +15,66 @@ namespace FoodExpress.Server.Services.DrinkService
 
         public async Task<Drink> AddDrink(Drink drink)
         {
-            if (drink == null)
+            try
             {
-                return null;
-            }
+                if (drink == null)
+                {
+                    return null;
+                }
 
-            await _context.Drinks.AddAsync(drink);
-            await _context.SaveChangesAsync();
-            return drink;
+                await _context.Drinks.AddAsync(drink);
+                await _context.SaveChangesAsync();
+                return drink;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Something went wrong while adding the drink.", ex);
+            }
         }
 
         public async Task<Drink> DeleteDrink(int id)
         {
-            var result = await _context.Drinks.FindAsync(id);
-            if (result == null)
+            try
             {
-                return null;
-            }
+                var result = await _context.Drinks.FindAsync(id);
+                if (result == null)
+                {
+                    return null;
+                }
 
-            _context.Drinks.Remove(result);
-            _context.SaveChanges();
-            return result;
+                _context.Drinks.Remove(result);
+                await _context.SaveChangesAsync();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Something went wrong while deleting the drink.", ex);
+            }
         }
 
         public async Task<Drink> GetDrinkById(int id)
         {
-            var result = await _context.Drinks.FindAsync(id);
-            if (result == null)
+            try
             {
-                return null;
+                var result = await _context.Drinks.FindAsync(id);
+                return result;
             }
-
-            return result;
+            catch (Exception ex)
+            {
+                throw new Exception("Something went wrong while retrieving the drink.", ex);
+            }
         }
 
         public async Task<List<Drink>> GetDrinks()
         {
-            return await _context.Drinks.ToListAsync();
+            try
+            {
+                return await _context.Drinks.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Something went wrong while retrieving the drinks.", ex);
+            }
         }
     }
 }
