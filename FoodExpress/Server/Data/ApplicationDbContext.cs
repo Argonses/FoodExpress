@@ -34,7 +34,7 @@ namespace FoodExpress.Server.Data
                 new Drink { Id = 2, ImageUrl = "https://www.marthastewart.com/thmb/v-noUz0Pm9dexdEBhiOKiC-TKhk=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/oj-upgrade-103121806_horiz_0-83474c4f9a0b4d7e9c06fc989fa1f5d2.jpgitokHQdK4qxB", Name = "Orange Juice", Description = "Freshly squeezed orange juice.", Price = 2.49 },
                 new Drink { Id = 3, ImageUrl = "https://s7d1.scene7.com/is/image/mcdonalds/DC_201906_1212_MediumIcedCoffee_Glass_A1_832x472:1-3-product-tile-desktop?wid=765&hei=472&dpr=off", Name = "Iced Coffee", Description = "Chilled coffee with milk and ice.", Price = 2.99 },
                 new Drink { Id = 4, ImageUrl = "https://1er.cz/3523-large_default/freshly-squeezed-lemonade-250ml.jpg", Name = "Lemonade", Description = "Refreshing lemon-flavored drink.", Price = 1.49 },
-                new Drink { Id = 5, ImageUrl = "https://cdn.myshoptet.com/usr/www.farmaufrantisky.cz/user/shop/big/2139_mojito.png?63c0024c", Name = "Mojito", Description = "Classic cocktail with rum, mint, lime, and soda.", Price = 5.99 },
+                new Drink { Id = 5, ImageUrl = "https://www.easydrinks.sk/user/21497/upload/stuff/resized/21010959_1920-1920.jpg", Name = "Mojito", Description = "Classic cocktail with rum, mint, lime, and soda.", Price = 5.99 },
                 new Drink { Id = 6, ImageUrl = "https://www.chinamist.com/mm5/graphics/00000001/1/5300CM_TradBlack-LooseIced_24ct_730x616.jpg", Name = "Iced Tea", Description = "Chilled tea with a hint of lemon.", Price = 1.99 }
                 );
 

@@ -96,11 +96,9 @@
     private async Task DeleteOrder(int orderId)
     {
         await cartService.DeleteOrder(orderId);
-        showAlert = true;
         StateHasChanged();
 
         await Task.Delay(2000);
-        showAlert = false;
         StateHasChanged();
 
         await LoadOrders();
