@@ -1,3 +1,86 @@
 ﻿@page "/"
+@using System.Net.Mail
+@using System.ComponentModel.DataAnnotations;
+@inject IJSRuntime JS
 
-<h3 style="text-align:center">Welcome to FoodExpress</h3>
+<link rel="stylesheet" href="/css/MainPageCSS.css" />
+
+<h3 class="title">Welcome to FoodExpress</h3>
+<p class="subtitle">FoodExpress is a web application that allows you to order food from various restaurants in your area. You can browse the menu, select your dishes, and pay online. Your food will be delivered to your door in no time.</p>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <img src="https://www.rohlik.cz/cdn-cgi/image/f=auto,fit=cover,g=0.5x0.5,w=2900,h=1300/https://cdn.rohlik.cz/images/meals/large/237.jpg" class="card-img-top" alt="Pizza">
+                <div class="card-body">
+                    <h5 class="card-title">Pizza</h5>
+                    <p class="card-text">Choose from a variety of toppings and sizes. Enjoy the cheesy goodness of pizza.</p>
+                    <a href="/food/1" class="btn btn-primary">Order Now</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <img src="https://www.sousviderecepty.cz/wp-content/uploads/2020/11/sousvide-hamburger.png" class="card-img-top" alt="Burger">
+                <div class="card-body">
+                    <h5 class="card-title">Burger</h5>
+                    <p class="card-text">Satisfy your hunger with a juicy burger. You can customize it with your favorite ingredients.</p>
+                    <a href="/food/2" class="btn btn-primary">Order Now</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <img src="https://media.istockphoto.com/id/688372776/photo/caesar-salad-on-white-background.jpg?s=612x612&w=0&k=20&c=kwaTRLVv5ANGZEhf86QH9t6_dYI_RVHfZ35dtFDECes=" class="card-img-top" alt="Salad">
+                <div class="card-body">
+                    <h5 class="card-title">Salad</h5>
+                    <p class="card-text">Enjoy a fresh and healthy salad. Just choose from different types of vegetables or fruits.</p>
+                    <a href="/food/3" class="btn btn-primary">Order Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3 class="title">Contact Us</h3>
+<p class="subtitle">If you have any questions or feedback, please fill out the form below and we will get back to you as soon as possible.</p>
+
+<EditForm Model="@email" OnValidSubmit="@SendEmail">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="form-group">
+        <label for="name">Name</label>
+        <InputText id="name" class="input-text" @bind-Value="@email.Name" />
+        <ValidationMessage For="@(() => email.Name)" />
+    </div>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <InputText id="email" type="email" class="input-text" @bind-Value="@email.Email" />
+        <ValidationMessage For="@(() => email.Email)" />
+    </div>
+    <div class="form-group">
+        <label for="subject">Subject</label>
+        <InputText id="subject" class="input-text" @bind-Value="@email.Subject" />
+        <ValidationMessage For="@(() => email.Subject)" />
+    </div>
+    <div class="form-group">
+        <label for="message">Message</label>
+        <InputTextArea id="message" rows="5" class="input-textarea" @bind-Value="@email.Message" />
+        <ValidationMessage For="@(() => email.Message)" />
+    </div>
+    <button type="submit" class="btn btn-primary">Send</button>
+</EditForm>
+
+@code {
+    public EmailModel email { get; set; } = new EmailModel();
+
+    public async Task SendEmail()
+    {
+        await JS.InvokeVoidAsync("alert", "Your email has been sent successfully.");
+
+        email.Name = "";
+        email.Email = "";
+        email.Subject = "";
+        email.Message = "";
+    }
+}

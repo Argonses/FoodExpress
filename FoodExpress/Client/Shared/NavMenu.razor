@@ -18,11 +18,11 @@
             <AuthorizeView>
                 <Authorized>
                     <NavLink class="nav-link" href="/foodList">
-                        <img src="Images/food.png" width="30" height="30" /> Foods
+                        <p>Food</p>
                     </NavLink>
                 </Authorized>
                 <NotAuthorized>
-                    <span>Log In to get access to Foods List</span>
+                    <span></span>
                 </NotAuthorized>
             </AuthorizeView>
         </div>
@@ -30,11 +30,23 @@
             <AuthorizeView>
                 <Authorized>
                     <NavLink class="nav-link" href="/drinkList">
-                        <img src="Images/drink.png" width="30" height="30" /> Drinks
+                        <p>Drinks</p>
                     </NavLink>
                 </Authorized>
                 <NotAuthorized>
-                    <span>Log In to get access to Drinks List</span>
+                    <span></span>
+                </NotAuthorized>
+            </AuthorizeView>
+        </div>
+        <div class="nav-item px-3">
+            <AuthorizeView>
+                <Authorized>
+                    <NavLink class="nav-link" href="/reviewsPage">
+                        <p>Reviews</p>
+                    </NavLink>
+                </Authorized>
+                <NotAuthorized>
+                    <span></span>
                 </NotAuthorized>
             </AuthorizeView>
         </div>
