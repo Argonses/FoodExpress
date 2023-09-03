@@ -1,7 +1,43 @@
 ﻿@page "/reviewsPage"
+@inject IReviewService ReviewService
 
 <h3>ReviewsPage</h3>
+<br />
+<a href="/addReview" class="btn btn-primary">Add Review</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Number of Stars</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var review in ReviewService.Reviews)
+        {
+            <tr>
+                <td>@review.Id</td>
+                <td>@review.Name</td>
+                <td>@review.LastName</td>
+                <td>@review.Email</td>
+                <td>@review.Title</td>
+                <td>@review.Description</td>
+                <td>@review.NumberOfStars</td>
+                <td>@review.Date.ToString("yyyy-MM-dd HH:mm:ss")</td>
+            </tr>
+        }
+    </tbody>
+</table>
 
 @code {
-
+    protected override async Task OnInitializedAsync() {
+        await ReviewService.GetAllReviews();
+    }
 }
+

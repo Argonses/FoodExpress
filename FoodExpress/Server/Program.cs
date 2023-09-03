@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using FoodExpress.Server.Services.FoodService;
 using FoodExpress.Server.Services.DrinkService;
 using FoodExpress.Server.Services.CartService;
+using FoodExpress.Server.Services.ReviewService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +33,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IFoodService, FoodService>();
 builder.Services.AddScoped<IDrinkService, DrinkService>();
 builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<IReviewService, ReviewService>();
 
 var app = builder.Build();
 
